@@ -5,13 +5,10 @@ function getArrayParams(...arr) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] > max) {
       max = arr[i];
-      sum = sum + arr[i];
     } else if (arr[i] < min) {
       min = arr[i];
-      sum = sum + arr[i];
-    } else {
-      sum = sum + arr[i];
     }
+    sum = sum + arr[i];
   }
   let avg = sum / arr.length;
   avg = Number(avg.toFixed(2))
@@ -20,8 +17,10 @@ function getArrayParams(...arr) {
 
 function summElementsWorker(...arr) {
   let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr.length > 0) { sum = sum + arr[i] }
+  if (arr.length > 0) {
+    for (let i = 0; i < arr.length; i++) {
+      sum = sum + arr[i];
+    }
   }
   return sum;
 }
@@ -30,15 +29,17 @@ function differenceMaxMinWorker(...arr) {
   let a = Math.max(...arr);
   let b = Math.min(...arr);
   let difference = 0;
-  if (arr.length > 0) { difference = a - b }
+  if (arr.length > 0) { 
+    difference = a - b;
+  }
   return difference;
 }
 
 function differenceEvenOddWorker(...arr) {
   let sumEvenElement = 0;
   let sumOddElement = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr.length > 0) {
+  if (arr.length > 0) {
+    for (let i = 0; i < arr.length; i++) {
       if (arr[i] % 2 === 0) {
         sumEvenElement = sumEvenElement + arr[i];
       } else {
@@ -54,8 +55,8 @@ function averageEvenElementsWorker(...arr) {
   let sumEvenElement = 0;
   let countEvenElement = 0;
   let average = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr.length > 0) {
+  if (arr.length > 0) {
+    for (let i = 0; i < arr.length; i++) {
       if (arr[i] % 2 === 0) {
         sumEvenElement = sumEvenElement + arr[i];
         countEvenElement = countEvenElement + 1;
@@ -68,11 +69,11 @@ function averageEvenElementsWorker(...arr) {
 
 function makeWork (arrOfArr, func) {
   let maxWorkerResult = -Infinity;
+  const funcResult = func(...arrOfArr[i]);
   for (let i = 0; i < arrOfArr.length; i++) {
-    func(...arrOfArr[i])
-    if ((func(...arrOfArr[i])) > maxWorkerResult) {
-      maxWorkerResult = func(...arrOfArr[i])
+    if (funcResult > maxWorkerResult) {
+      maxWorkerResult = funcResult;
     }
   }
-  return maxWorkerResult;
+   return maxWorkerResult;
 }
