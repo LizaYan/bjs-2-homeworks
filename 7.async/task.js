@@ -9,10 +9,8 @@ class AlarmClock {
             throw new Error("Отсутствуют обязательные аргументы");
         } 
 
-        for (let i = 0; i < this.alarmCollection.length; i++ ) {
-            if (this.alarmCollection[i] == time) {
-                console.warn('Уже присутствует звонок на это же время'); 
-            }
+        if (this.alarmCollection.some(x => x.time == time))  {
+            console.warn('Уже присутствует звонок на это же время'); 
         }
 
         this.alarmCollection.push({
@@ -26,9 +24,10 @@ class AlarmClock {
     }
 
     getCurrentFormattedTime() {
-        let date = new Date;
-        let currentTime = String(date.getHours()) + ':' + String(date.getMinutes()); 
-        return currentTime;
+        return new Date().toLocaleTimeString("ru-Ru", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
     }
 
     start() {
